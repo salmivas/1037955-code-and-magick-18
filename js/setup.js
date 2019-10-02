@@ -6,8 +6,10 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARDS_NUMBER = 4;
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
+var KeyCode = {
+  ESC_KEYCODE: 27,
+  ENTER_KEYCODE: 13,
+};
 
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
@@ -15,14 +17,16 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var setupUserName = setup.querySelector('.setup-user-name');
-var setupWizard = setup.querySelector('.setup-wizard');
-var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
-var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
+var setupPlayer = setup.querySelector('.setup-player');
+var setupWizardCoat = setupPlayer.querySelector('.wizard-coat');
+var setWizardCoatColor = setupPlayer.querySelector('input:nth-last-child(2)');
+var setupWizardEyes = setupPlayer.querySelector('.wizard-eyes');
+var setWizardEyesColor = setupPlayer.querySelector('input:last-child');
 var setupWizardFireball = setup.querySelector('.setup-fireball-wrap');
 var setFireballColor = setupWizardFireball.querySelector('input');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === KeyCode.ESC_KEYCODE) {
     closePopup();
   }
 };
@@ -86,7 +90,7 @@ setupOpen.addEventListener('click', function () {
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (evt.keyCode === KeyCode.ENTER_KEYCODE) {
     openPopup();
   }
 });
@@ -96,7 +100,7 @@ setupClose.addEventListener('click', function () {
 });
 
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (evt.keyCode === KeyCode.ENTER_KEYCODE) {
     closePopup();
   }
 });
@@ -106,11 +110,15 @@ setupUserName.addEventListener('keydown', function (evt) {
 });
 
 setupWizardCoat.addEventListener('click', function () {
-  setupWizardCoat.style.fill = getRandom(COAT_COLORS);
+  var color = getRandom(COAT_COLORS);
+  setupWizardCoat.style.fill = color;
+  setWizardCoatColor.value = color;
 });
 
 setupWizardEyes.addEventListener('click', function () {
-  setupWizardEyes.style.fill = getRandom(EYES_COLORS);
+  var color = getRandom(EYES_COLORS);
+  setupWizardEyes.style.fill = color;
+  setWizardEyesColor.value = color;
 });
 
 setupWizardFireball.addEventListener('click', function () {
