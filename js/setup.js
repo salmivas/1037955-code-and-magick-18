@@ -37,8 +37,10 @@ var openPopup = function () {
 };
 
 var closePopup = function () {
-  setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
+  if (document.activeElement !== setupUserName) {
+    setup.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+  }
 };
 
 var getRandom = function (list) {
@@ -103,10 +105,6 @@ setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === KeyCode.ENTER_KEYCODE) {
     closePopup();
   }
-});
-
-setupUserName.addEventListener('keydown', function (evt) {
-  evt.stopPropagation();
 });
 
 setupWizardCoat.addEventListener('click', function () {
