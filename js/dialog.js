@@ -8,6 +8,9 @@
   var dialogHandle = setup.querySelector('.upload');
   var initialXSetupPosition = getComputedStyle(setup).top;
   var initialYSetupPosition = getComputedStyle(setup).left;
+  var startCoords;
+  var onMouseMove;
+  var onMouseUp;
 
   var closePopup = function () {
     if (document.activeElement !== setupUserName) {
@@ -46,14 +49,14 @@
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoords = {
+    startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
 
     var dragged = false;
 
-    var onMouseMove = function (moveEvt) {
+    onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
       dragged = true;
 
@@ -71,7 +74,7 @@
       setup.style.left = (setup.offsetLeft - shift.x) + 'px';
     };
 
-    var onMouseUp = function (upEvt) {
+    onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
