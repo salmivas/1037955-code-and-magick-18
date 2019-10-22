@@ -13,30 +13,30 @@
   var setupWizardFireball = setupPlayer.querySelector('.setup-fireball-wrap');
   var setFireballColor = setupWizardFireball.querySelector('input');
 
-  var getRandom = function (list) {
+  var getRandomItem = function (list) {
     return list[Math.floor((Math.random() * list.length))];
   };
 
   setupWizardCoat.addEventListener('click', function () {
-    var color = getRandom(COAT_COLORS);
+    var color = getRandomItem(COAT_COLORS);
     setupWizardCoat.style.fill = color;
     setWizardCoatColor.value = color;
   });
 
   setupWizardEyes.addEventListener('click', function () {
-    var color = getRandom(EYES_COLORS);
+    var color = getRandomItem(EYES_COLORS);
     setupWizardEyes.style.fill = color;
     setWizardEyesColor.value = color;
   });
 
   setupWizardFireball.addEventListener('click', function () {
-    var color = getRandom(FIREBALL_COLORS);
+    var color = getRandomItem(FIREBALL_COLORS);
     setupWizardFireball.style.background = color;
     setFireballColor.value = color;
   });
 
   window.setup = {
-    getRandom: getRandom,
+    getRandomItem: getRandomItem,
     COAT_COLORS: COAT_COLORS,
     EYES_COLORS: EYES_COLORS,
   };
