@@ -6,10 +6,23 @@
   var setupClose = document.querySelector('.setup-close');
   var setupUserName = setup.querySelector('.setup-user-name');
   var dialogHandle = setup.querySelector('.upload');
+  var form = setup.querySelector('.setup-wizard-form');
   var initialXSetupPosition = getComputedStyle(setup).top;
   var initialYSetupPosition = getComputedStyle(setup).left;
   var startCoords;
   var dragged = false;
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
 
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
@@ -89,4 +102,16 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+
+    var onLoad = function () {
+      closePopup();
+    };
+
+    window.backend.save(new FormData(form), onLoad, onError);
+  });
+
+  window.backend.load(window.WizardsGenerator.generateWizards, onError);
 })();
